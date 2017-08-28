@@ -20,7 +20,7 @@ let gridSize = lengthOfGrid * widthOfGrid
 var internalGrid: [[String]] // our game board
 var innerArray: [String] // this will be used to fill our grid with rows
 
-var round: Int
+var markedSpaces: Int
 
 print(" _Tic_|_____|_____ ")
 print("      | Tac |      ")
@@ -50,8 +50,6 @@ while true { // we want our game to keep running until we break this loop and qu
      
      See https://code.tutsplus.com/tutorials/swift-and-regular-expressions-swift--cms-26626
      */
-    
-    round = 0 // we start counting rounds once we know the player hasn't quit
     
     if playersResponse != "" {
         player1 = playersResponse
@@ -114,10 +112,9 @@ while true { // we want our game to keep running until we break this loop and qu
     }
     
     ongoingGame = true // we have a player and a grid! we can now start playing!
+    markedSpaces = 0 // our grid hasn't been played on yet
     
     while ongoingGame {
-        round += 1 // we start counting our rounds...if we hit 9, the game ends
-        
         var promptPlayer = true
         
         while promptPlayer {
@@ -168,6 +165,7 @@ while true { // we want our game to keep running until we break this loop and qu
                 }
                 
                 internalGrid[outerIndex][innerIndex] = "X"
+                markedSpaces += 1
                 
                 print("")
                 for outerIndex in 0..<lengthOfGrid {
@@ -238,9 +236,15 @@ while true { // we want our game to keep running until we break this loop and qu
             let computersChoice = internalGrid[outerRandom][innerRandom]
             
             if computersChoice == "X" || computersChoice == "O" {
-                continue
+                // doublecheck that there are spots still open!
+                if markedSpaces != gridSize {
+                    continue
+                } else {
+                    break
+                }
             } else {
                 internalGrid[outerRandom][innerRandom] = "O"
+                markedSpaces += 1
                 
                 for outerIndex in 0..<lengthOfGrid {
                     for innerIndex in 0..<widthOfGrid {
@@ -267,7 +271,7 @@ while true { // we want our game to keep running until we break this loop and qu
         
         checkWinState(player: player1)
         
-        if round == 9 {
+        if markedSpaces == gridSize {
             /*
              it would be nice if we had some logic for checking to see if the
              game is unwinnable...but this will do for now
