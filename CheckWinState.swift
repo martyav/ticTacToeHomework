@@ -8,115 +8,70 @@
 
 import Foundation
 
-func checkWinState(player: String) {
-    /* 
-     The function doesn't know about any of the variables inside the game yet. 
-     When we use the function in our game, we tell it the player's name so it can
-     print out the proper messages. Like so --
-     
-     checkWinState(player: player1)
-     */
+func shouldGameKeepRunning(inGrid grid: [[String]], withLength length: Int, andWidth width: Int) -> Bool {
     
-    // this function is very long...mostly because i wanted to avoid hardcoding in what a win looks like
+    var rows: String
+    var forwardDiagonals = "" // in a regular Tic-Tac-Toe grid, these are 1, 5, 9
+    var backwardDiagonals = "" // in a regular Tic-Tac-Toe grid, these are 3, 5, 7
+    var columns: [String] = []
     
-    var checkForwardDiagonals = "" // in a regular Tic-Tac-Toe grid, these are 1, 5, 9
-    var checkBackwardDiagonals = "" // in a regular Tic-Tac-Toe grid, these are 3, 5, 7
-    var checkColumns: [String] = []
-    
-    for outerIndex in 0..<lengthOfGrid {
-        // check rows
-        
-        if internalGrid[outerIndex].joined() == String(repeating: "X", count: widthOfGrid) {
-            print("\(player) wins!") // .joined() gives us a single string made up of everything inside the array
-            ongoingGame = false
-            break
-        }
-        
-        if internalGrid[outerIndex].joined() == String(repeating: "O", count: widthOfGrid) {
-            print("Computer wins!")
-            ongoingGame = false
-            break
-        }
-        
-        // load up our diagnol & column checkers
-        
-        for innerIndex in 0..<widthOfGrid {
-            checkColumns.append(internalGrid[outerIndex][innerIndex])
-            
-            if innerIndex == outerIndex {
-                checkForwardDiagonals += internalGrid[outerIndex][innerIndex]
-            }
-            
-            if innerIndex == widthOfGrid - outerIndex - 1 {
-                checkBackwardDiagonals += internalGrid[outerIndex][innerIndex]
-            }
-            
-        }
-        
-        // check forward diagonals
-        
-        if checkForwardDiagonals == String(repeating: "X", count: widthOfGrid) {
+    func check(_ line: String, for mark: String = "X", versus: String = "O", player: String = player1, opponent: String = "Computer") -> Bool {
+        if line.contains(String(repeating: mark, count: width)) {
             print("\(player) wins!")
-            ongoingGame = false
-            break
-        }
-        
-        if checkForwardDiagonals == String(repeating: "O", count: widthOfGrid) {
-            print("Computer wins!")
-            ongoingGame = false
-            break
-        }
-        
-        // check backward diagonals
-        
-        if checkBackwardDiagonals == String(repeating: "X", count: widthOfGrid) {
-            print("\(player) wins!")
-            ongoingGame = false
-            break
-        }
-        
-        if checkBackwardDiagonals == String(repeating: "O", count: widthOfGrid) {
-            print("Computer wins!")
-            ongoingGame = false
-            break
-        }
-        
-        // check columns
-        
-        for currentColumn in 0..<widthOfGrid {
-            var column = ""
-            
-            for index in stride(from: currentColumn, to: checkColumns.count, by: widthOfGrid) {
-                column += checkColumns[index]
-            }
-            
-            /*
-             We made checkColumns one long array of strings so we could use stride on it.
-             Stride lets us go through the array by skipping over some elements 
-             and by starting in different places on each trip through the loop.
-             
-             On our first trip, we start on index 0, and stride by 3's, so we go down 1, 4, 7.
-             Then we go to index 1, and stride down by 3's -- 2, 5, 8.
-             Then we hit our last index, 2, and stride down by 3's -- 3, 6, 9.
-             
-             There is a method called .flatMap() that we could have used to make 
-             our three-array grid into one long array. We didn't use it here because
-             .flatMap()'s use can get kind of confusing...especially since you 
-             haven't covered closures yet.
-             */
-            
-            if column == String(repeating: "O", count: widthOfGrid) {
-                print("Computer wins!")
-                ongoingGame = false
-                break
-            }
-            
-            if column == String(repeating: "X", count: widthOfGrid) {
-                print("\(player) wins!")
-                ongoingGame = false
-                break
-            }
-            
+            return true
+        } else if line.contains(String(repeating: versus, count: width)) {
+            print("\(opponent) wins!")
+            return true
+        } else {
+            return false
         }
     }
+    
+    for outerIndex in 0..<length {
+        
+        rows = grid[outerIndex].joined() // makes each inner array into one string
+        columns = grid.flatMap {$0} // makes the grid into one long array
+        
+        for innerIndex in 0..<width {
+            
+            if innerIndex == outerIndex {
+                forwardDiagonals += grid[outerIndex][innerIndex]
+            }
+            
+            if innerIndex == width - outerIndex - 1 {
+                backwardDiagonals += grid[outerIndex][innerIndex]
+            }
+            
+        }
+        
+        let winnerInRows = check(rows)
+        let winnerInForwardDiagonal = check(forwardDiagonals)
+        let winnerInBackwardDiagonal = check(backwardDiagonals)
+        
+        if winnerInRows || winnerInForwardDiagonal || winnerInBackwardDiagonal {
+            // if we have a winner, game shouldn't keep going!
+            return false
+        }
+        
+        // load up columns
+        
+        for currentColumn in 0..<width {
+            let winnerInColumn: Bool
+            var tempColumn = ""
+            
+            for index in stride(from: currentColumn, to: columns.count, by: width) {
+                tempColumn += columns[index]
+            }
+            
+            winnerInColumn = check(tempColumn)
+            
+            if winnerInColumn == true {
+                return false
+            }
+        }
+    }
+    
+    // keep going until we have a winner
+    return true
 }
+

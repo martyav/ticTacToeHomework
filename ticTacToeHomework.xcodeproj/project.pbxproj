@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		052CCD201F53968A0054142C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD1F1F53968A0054142C /* main.swift */; };
 		052CCD271F53E5E90054142C /* CheckWinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD261F53E5E90054142C /* CheckWinState.swift */; };
+		052CCD291F547E860054142C /* DrawGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD281F547E860054142C /* DrawGrid.swift */; };
+		052CCD2B1F548DAA0054142C /* CheckIfGridIsFilled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD2A1F548DAA0054142C /* CheckIfGridIsFilled.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +29,8 @@
 		052CCD1C1F53968A0054142C /* ticTacToeHomework */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ticTacToeHomework; sourceTree = BUILT_PRODUCTS_DIR; };
 		052CCD1F1F53968A0054142C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		052CCD261F53E5E90054142C /* CheckWinState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckWinState.swift; path = ../CheckWinState.swift; sourceTree = "<group>"; };
+		052CCD281F547E860054142C /* DrawGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawGrid.swift; sourceTree = "<group>"; };
+		052CCD2A1F548DAA0054142C /* CheckIfGridIsFilled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckIfGridIsFilled.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			children = (
 				052CCD261F53E5E90054142C /* CheckWinState.swift */,
 				052CCD1F1F53968A0054142C /* main.swift */,
+				052CCD2A1F548DAA0054142C /* CheckIfGridIsFilled.swift */,
+				052CCD281F547E860054142C /* DrawGrid.swift */,
 			);
 			path = ticTacToeHomework;
 			sourceTree = "<group>";
@@ -124,8 +130,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				052CCD291F547E860054142C /* DrawGrid.swift in Sources */,
 				052CCD201F53968A0054142C /* main.swift in Sources */,
 				052CCD271F53E5E90054142C /* CheckWinState.swift in Sources */,
+				052CCD2B1F548DAA0054142C /* CheckIfGridIsFilled.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
