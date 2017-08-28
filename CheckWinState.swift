@@ -101,7 +101,8 @@ func checkWinState(player: String) {
              
              There is a method called .flatMap() that we could have used to make 
              our three-array grid into one long array. We didn't use it here because
-             .flatMap()'s use can get kind of confusing.
+             .flatMap()'s use can get kind of confusing...especially since you 
+             haven't covered closures yet.
              */
             
             if column == String(repeating: "O", count: widthOfGrid) {

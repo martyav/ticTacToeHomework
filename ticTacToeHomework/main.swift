@@ -6,27 +6,27 @@
 //  Copyright © 2017 Marty's . All rights reserved.
 //
 
-import Foundation // importing Foundation lets you use all sorts of built-in functions and classes
+import Foundation // importing Foundation lets you use built-in functions & classes
 
 var ongoingGame: Bool
 
 let prompt = ">> "
-var player1: String = "Anonymous" // this gives the player a default name if they don't type one in later
+var player1: String = "Anonymous" // this gives the player a default name 
 
-let lengthOfGrid = 3 // we make the length and width variable in case we want to play bigger or smaller games
+let lengthOfGrid = 3 // we make these variable so we can play different-sized games
 let widthOfGrid = 3
 let gridSize = lengthOfGrid * widthOfGrid
 
-var internalGrid: [[String]] // our game board. it's not initialized yet because the game hasn't started
-var innerArray: [String] // this will be used and resused to fill our grid with rows
+var internalGrid: [[String]] // our game board
+var innerArray: [String] // this will be used to fill our grid with rows
 
 var round: Int
 
 
 print("*--- _Tic_|_Tac_|_Toe_ ---* \n")
-print("Welcome! What is your name?", terminator: " ") // personalizing the game is always a nice touch
+print("Welcome! What is your name?", terminator: " ")
 
-while true { // we want our game to keep running and running, until we break this loop and quit
+while true { // we want our game to keep running until we break this loop and quit
     print("If you want to stop playing, type 'quit' to exit.", prompt, separator: "\n")
     
     let playersResponse = readLine()!
@@ -42,8 +42,9 @@ while true { // we want our game to keep running and running, until we break thi
      when we take in user input, we should make it all the same case --
      otherwise we'll have to check if the user typed quit, Quit, QUIT, etc. 
      
-     If we used something called regular expressions, we wouldn't have to use .lowercased(),
-     but regular expressions are a much more complicated topic than String methods!
+     If we used something called regular expressions, we wouldn't have to use 
+     .lowercased(), but regular expressions are a much more complicated topic 
+     than String methods!
      
      See https://code.tutsplus.com/tutorials/swift-and-regular-expressions-swift--cms-26626
      */
@@ -51,7 +52,12 @@ while true { // we want our game to keep running and running, until we break thi
     round = 0 // we start counting rounds once we know the player hasn't quit
     
     if playersResponse != "" {
-        player1 = playersResponse // if we get no answer the first time the player plays, the default value is "Anonymous". If they win or lose a game and restart, they can choose to keep their current name or change it
+        player1 = playersResponse
+        /*
+        if we get no answer the first time the player plays, the default value 
+        is "Anonymous". If they win or lose a game and restart, they can choose 
+        to keep their current name or change it
+        */
     }
     
     print("\nHi, \(player1)! Let's get started!")
@@ -61,28 +67,46 @@ while true { // we want our game to keep running and running, until we break thi
     
     print("Try to beat me! Make a straight line of X's inside the grid and win! \n")
     
-    internalGrid = [] // we reset the grid to empty
-    innerArray = [] // this is a container for the rows inside our grid. It gets reset on each trip through the loop
+    internalGrid = [] // we set the grid to empty
+    innerArray = [] // we initialize this as empty, too
+    
+    /*
+    setting these two as empty down here ensures the grid will be fresh every
+    time the player starts a new game.
+    */
     
     for number in 1...gridSize {
-        innerArray.append(String(number)) // on each trip through a row, we append the number to our inner array
+        innerArray.append(String(number))
+        // on each trip thru a row, we append the new number to our inner array
         
         if number % widthOfGrid > 0 { // These are our first & middle columns
             print("_\(number)_|", terminator: "")
-        } else { // This is our last column -- 3, 6, 9, if we're doing the usual Tic-Tac-Toe
+        } else { // This is our last column -- 3, 6, 9, if we're doing a 3x3 grid
             print("_\(number)_\n")
             
-            internalGrid.append(innerArray) // once we reach the last column in a row, we append the innerArray we just filled up...
-            innerArray = [] //  and then empty the innerArray for the next trip through a row
+            internalGrid.append(innerArray)
+            /* 
+             once we reach the last column in a row, we append the innerArray
+             we just filled up...
+             */
+            
+            innerArray = []
+            /*
+            ...and then empty the innerArray for the next trip through a row
+            */
         }
         
-        // Note: We fill up our grid while printing another grid just for show. Doing it this way means we don't have to write two loops -- one to fill the grid and one to display it
+        /* 
+        Note: We fill up our grid while printing another grid just for show.
+        Doing it this way means we don't have to write two loops -- one to fill 
+        the grid and one to display it
+        */
     }
     
     ongoingGame = true // we have a player and a grid! we can now start playing!
     
     while ongoingGame {
-        round += 1
+        round += 1 // we start counting our rounds...if we hit 9, the game ends
         
         var promptPlayer = true
         
@@ -92,8 +116,18 @@ while true { // we want our game to keep running and running, until we break thi
             let playersChoice = readLine()!
             
             if let coordinate = Int(playersChoice) {
-                guard coordinate < 10 else { // guard statements help us handle errors in user input before we get too far into the loop
-                    print("That number is too big!") // it's a good idea to give your user advice on what wrong when they make an error
+                guard coordinate < 10 else {
+                    /* 
+                     guard statements help us handle errors in user input before
+                     we get too far into the loop
+                     */
+                    
+                    print("That number is too big!")
+                    /* 
+                     it's a good idea to give your user advice on what wrong 
+                     when they make an error
+                     */
+                    
                     continue // go to top of the promptPlayer loop and start again
                 }
                 
@@ -105,7 +139,10 @@ while true { // we want our game to keep running and running, until we break thi
                 let innerIndex: Int
                 let outerIndex: Int
                 
-                // these calculations are only true for square grids...if you can figure out the math for any kind of grid, congrats.
+                /* 
+                 these calculations are only true for square grids...if you
+                 can figure out the math for a grid with unequal sides, congrats.
+                 */
                 
                 if coordinate % widthOfGrid != 0 {
                     innerIndex = (coordinate % widthOfGrid) - 1
@@ -136,14 +173,26 @@ while true { // we want our game to keep running and running, until we break thi
                 
                 promptPlayer = false
             } else {
-                print("I need a digit between 1 and \(gridSize)!") // this else statement only runs if the user doesn't type a number
+                print("I need a digit between 1 and \(gridSize)!")
+                /* 
+                 this else statement only runs if the user doesn't type a number
+                 */
             }
         }
         
-        checkWinState(player: player1) // checkWinState is a long function put inside its own file. I tried doing this homework without using functions in case you all haven't covered them yet, but it got pretty brutal since I'm also trying to avoid hardcoding the win/lose positions
+        checkWinState(player: player1) /* 
+         checkWinState is a long function put inside its own file. I tried doing
+         this homework without using any functions in case you all haven't 
+         covered them yet, but it got pretty brutal since I'm also trying to 
+         avoid hardcoding the win/lose positions
+         */
         
         if ongoingGame == false {
-            break // oddly, we can have the checkWinState function set ongoingGame to false...but the game will keep running...so we need this extra break
+            break /* 
+             oddly, we can have the checkWinState function set ongoingGame to 
+             false...but the game will keep running...so we need this check to
+             break the loop before the computer takes a turn.
+             */
         }
         
         print("\nNow my turn!\n")
@@ -152,7 +201,14 @@ while true { // we want our game to keep running and running, until we break thi
         
         while computerPicks {
             
-            let outerRandom = Int(arc4random_uniform(3)) // as dave posted in code snippets, we can use this built in function to randomize our games. But we need to make the result an Int, because otherwise we get an Int32, and we can't use that as an index
+            let outerRandom = Int(arc4random_uniform(3))
+            /*
+             as dave posted in code snippets, we can use this built in function 
+             to randomize our games. But we need to make the result an Int, 
+             because otherwise we get an Int32, and we can't use that as an 
+             index
+            */
+            
             let innerRandom = Int(arc4random_uniform(3))
             let computersChoice = internalGrid[outerRandom][innerRandom]
             
@@ -178,13 +234,18 @@ while true { // we want our game to keep running and running, until we break thi
         
         checkWinState(player: player1)
         
-        if round == 9 { // it would be nice if we had some logic for checking to see if the game is unwinnable...but this will do for now
+        if round == 9 {
+            /*
+             it would be nice if we had some logic for checking to see if the 
+             game is unwinnable...but this will do for now 
+             */
+            
             print("Looks like a draw!")
             break
         }
     }
     
-    // this stuff is only displayed once the game is over
+    // this stuff below is only displayed once the game is over
     
     print("\nDo you want to try again?", prompt, separator: "\n")
     let playAgain = readLine()!
