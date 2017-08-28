@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		052CCD201F53968A0054142C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD1F1F53968A0054142C /* main.swift */; };
+		052CCD271F53E5E90054142C /* CheckWinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052CCD261F53E5E90054142C /* CheckWinState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		052CCD1C1F53968A0054142C /* ticTacToeHomework */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ticTacToeHomework; sourceTree = BUILT_PRODUCTS_DIR; };
 		052CCD1F1F53968A0054142C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		052CCD261F53E5E90054142C /* CheckWinState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckWinState.swift; path = ../CheckWinState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		052CCD1E1F53968A0054142C /* ticTacToeHomework */ = {
 			isa = PBXGroup;
 			children = (
+				052CCD261F53E5E90054142C /* CheckWinState.swift */,
 				052CCD1F1F53968A0054142C /* main.swift */,
 			);
 			path = ticTacToeHomework;
@@ -122,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				052CCD201F53968A0054142C /* main.swift in Sources */,
+				052CCD271F53E5E90054142C /* CheckWinState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
