@@ -22,7 +22,6 @@ var innerArray: [String] // this will be used to fill our grid with rows
 
 var round: Int
 
-
 print("*--- _Tic_|_Tac_|_Toe_ ---* \n")
 print("Welcome! What is your name?", terminator: " ")
 
@@ -200,6 +199,7 @@ while true { // we want our game to keep running until we break this loop and qu
         var computerPicks = true
         
         while computerPicks {
+            sleep(1) // makes it seem like the computer is thinking carefully
             
             let outerRandom = Int(arc4random_uniform(3))
             /*
@@ -252,8 +252,9 @@ while true { // we want our game to keep running until we break this loop and qu
     
     if playAgain.lowercased() == "yes" {
         ongoingGame = true
-        print("\nIf you want to change your name, type something new now. If not, just hit enter.", terminator: " ")
+        print("\nHi again, \(player1). If you want to change your name, type something new now. If not, just hit enter.", terminator: " ")
     } else {
+        print("Bye-bye!")
         break
     }
 }

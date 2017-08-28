@@ -122,3 +122,5 @@ func checkWinState(player: String) {
 }
 
 // this function contains a lot of repetitive code. how could we make it smaller?
+
+// how could we write code so we track wins and losses?
