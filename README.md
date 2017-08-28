@@ -6,6 +6,7 @@ This implementation of Tic Tac Toe includes:
 * Player naming
 * Quitting early
 * Resizable grids
+* Our new best friend, stride
 * Loops that ask for user input until they get valid values
 * Games that can be restarted after a win/loss/draw
 * Win states that don't use hardcoded values
