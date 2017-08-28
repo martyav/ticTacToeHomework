@@ -8,7 +8,7 @@
 
 import Foundation
 
-var ongoingGame: Bool
+var ongoingGame = false
 
 let prompt = ">> "
 let player1Symbol = "✘"
@@ -118,9 +118,7 @@ while true {
             }
         }
         
-        ongoingGame = shouldGameKeepRunning(inGrid: internalGrid, withLength: lengthOfGrid, andWidth: widthOfGrid)
-        
-        if ongoingGame == false {
+        if !shouldGameKeepRunning(inGrid: internalGrid, withLength: lengthOfGrid, andWidth: widthOfGrid) {
             break
         }
         
@@ -157,7 +155,9 @@ while true {
             }
         }
         
-        ongoingGame = shouldGameKeepRunning(inGrid: internalGrid, withLength: lengthOfGrid, andWidth: widthOfGrid)
+        if !shouldGameKeepRunning(inGrid: internalGrid, withLength: lengthOfGrid, andWidth: widthOfGrid) {
+            break
+        }
         
         if isGridIsFilled(internalGrid) {
             print("Looks like a draw!")
@@ -172,7 +172,6 @@ while true {
     let yesMatch = yesCommand.matches(in: playAgain, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, playAgain.characters.count))
     
     if yesMatch.count > 0 {
-        ongoingGame = true
         print("\nHi again, \(player1). If you want to change your name, type something new now. If not, just hit enter.", terminator: " ")
     } else {
         print("Bye-bye!")
