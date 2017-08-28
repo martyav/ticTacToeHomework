@@ -12,7 +12,7 @@ var ongoingGame: Bool
 
 let prompt = ">> "
 let player1Symbol = "✘"
-let opponentSymbol = "⦿"
+let opponentSymbol = "◎"
 var player1: String = "Anonymous"
 
 let lengthOfGrid = 3
@@ -42,7 +42,7 @@ while true {
     }
     
     if playersResponse != "" {
-        player1 = playersResponse.uppercased()
+        player1 = playersResponse.capitalized
     }
     
     print("\nHi, \(player1)! Let's get started!")
@@ -103,12 +103,12 @@ while true {
                     outerIndex = (coordinate / (gridSize / lengthOfGrid)) - 1
                 }
                 
-                if internalGrid[outerIndex][innerIndex] == "X" || internalGrid[outerIndex][innerIndex] == "O" {
+                if internalGrid[outerIndex][innerIndex] == player1Symbol || internalGrid[outerIndex][innerIndex] == opponentSymbol {
                     print("Oops, that spot is already filled!")
                     continue
                 }
                 
-                internalGrid[outerIndex][innerIndex] = "X"
+                internalGrid[outerIndex][innerIndex] = player1Symbol
                 
                 drawGrid(length: lengthOfGrid, width: widthOfGrid, contents: internalGrid)
                 
@@ -145,11 +145,11 @@ while true {
             let innerRandom = Int(arc4random_uniform(width))
             let computersChoice = internalGrid[outerRandom][innerRandom]
             
-            if computersChoice == "X" || computersChoice == "O" {
+            if computersChoice == player1Symbol || computersChoice == opponentSymbol {
                 print("...hm...")
                 continue
             } else {
-                internalGrid[outerRandom][innerRandom] = "O"
+                internalGrid[outerRandom][innerRandom] = opponentSymbol
                 
                 drawGrid(length: lengthOfGrid, width: widthOfGrid, contents: internalGrid)
                 

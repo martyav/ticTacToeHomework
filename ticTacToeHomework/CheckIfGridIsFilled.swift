@@ -13,7 +13,6 @@ func isGridIsFilled(_ grid: [[String]]) -> Bool {
     let regExp = try! NSRegularExpression(pattern: "\\d")
     let matchResult = regExp.matches(in: flattenedGrid, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, flattenedGrid.characters.count))
     
-    
     if matchResult.count > 0 {
         return false
     } else {

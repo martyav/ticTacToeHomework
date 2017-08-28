@@ -15,7 +15,7 @@ func shouldGameKeepRunning(inGrid grid: [[String]], withLength length: Int, andW
     var backwardDiagonals = "" // in a regular Tic-Tac-Toe grid, these are 3, 5, 7
     var columns: [String] = []
     
-    func check(_ line: String, for mark: String = "X", versus: String = "O", player: String = player1, opponent: String = "Computer") -> Bool {
+    func check(_ line: String, for mark: String = player1Symbol, versus: String = opponentSymbol, player: String = player1, opponent: String = "Computer") -> Bool {
         if line.contains(String(repeating: mark, count: width)) {
             print("\(player) wins!")
             return true
